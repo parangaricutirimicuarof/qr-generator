@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QRAesthetic | Generador QR Premium</title>
+    <meta name="description" content="Crea códigos QR estéticos y personalizados con tu identidad de marca en segundos." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-950 text-slate-300 font-sans min-h-screen flex flex-col relative overflow-x-hidden">
+    <!-- Ambient Background Gradients -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-brand-500/20 blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-fuchsia-600/20 blur-[120px] pointer-events-none"></div>
+
+    <!-- Navigation -->
+    <nav class="w-full relative z-10 border-b border-white/5 bg-slate-950/50 backdrop-blur-md">
+      <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2 text-2xl font-bold tracking-tight text-white">
+          <i data-lucide="qr-code" class="w-8 h-8 text-brand-500"></i>
+          <span>QR<span class="text-brand-400">Aesthetic</span></span>
+        </div>
+        <a href="#features" class="text-sm font-medium text-slate-400 hover:text-white transition-colors">Características</a>
+      </div>
+    </nav>
+
+    <main class="flex-grow w-full relative z-10 flex flex-col items-center">
+      
+      <section class="w-full max-w-7xl mx-auto px-6 py-16 md:py-24">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+          <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            Códigos QR que reflejan tu <span class="text-gradient">Identidad de Marca</span>
+          </h1>
+          <p class="text-lg md:text-xl text-slate-400">
+            Diseña, personaliza y genera códigos QR vectoriales impecables en segundos. Completamente procesado en tu navegador para máxima privacidad y velocidad.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- LEFT PANEL: CONFIGURATION -->
+          <div class="lg:col-span-7 glass-panel rounded-3xl p-6 md:p-8 flex flex-col gap-8">
+            <div class="flex items-center justify-between mb-2">
+              <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                <i data-lucide="settings-2" class="w-5 h-5 text-brand-400"></i> Configuración
+              </h2>
+              <div class="flex gap-2 items-center">
+                <button type="button" id="btn-reset" class="p-2 bg-slate-950/50 hover:bg-slate-800 text-slate-400 hover:text-red-400 rounded-lg transition-colors border border-slate-700/50 mr-2" title="Restaurar valores por defecto">
+                  <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
+                </button>
+                <div class="h-6 w-px bg-slate-800 mr-2"></div>
+                <button type="button" id="btn-preset-minimal" class="p-2 bg-slate-950/50 hover:bg-slate-800 text-slate-400 hover:text-white rounded-lg transition-colors border border-slate-700/50" title="Minimalista">
+                  <i data-lucide="square" class="w-4 h-4"></i>
+                </button>
+                <button type="button" id="btn-preset-cyberpunk" class="p-2 bg-slate-950/50 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 rounded-lg transition-colors border border-slate-700/50" title="Cyberpunk">
+                  <i data-lucide="zap" class="w-4 h-4"></i>
+                </button>
+                <button type="button" id="btn-preset-brand" class="p-2 bg-slate-950/50 hover:bg-slate-800 text-brand-400 hover:text-brand-300 rounded-lg transition-colors border border-brand-500/30" title="Brand (Default)">
+                  <i data-lucide="palette" class="w-4 h-4"></i>
+                </button>
+              </div>
+            </div>
+            
+            <form id="qr-form" class="flex flex-col gap-6" onsubmit="event.preventDefault();">
+              
+              <!-- Tabs -->
+              <div class="flex flex-wrap p-1 gap-1 bg-slate-950/50 border border-slate-700/50 rounded-xl">
+                <button type="button" data-tab="url" class="qr-tab-btn flex-1 py-2 px-1 text-xs font-medium rounded-lg bg-brand-500 text-white shadow-md transition-all flex items-center justify-center gap-1">
+                  <i data-lucide="link" class="w-4 h-4"></i> URL
+                </button>
+                <button type="button" data-tab="wifi" class="qr-tab-btn flex-1 py-2 px-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-1">
+                  <i data-lucide="wifi" class="w-4 h-4"></i> WiFi
+                </button>
+                <button type="button" data-tab="vcard" class="qr-tab-btn flex-1 py-2 px-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-1">
+                  <i data-lucide="contact" class="w-4 h-4"></i> vCard
+                </button>
+                <button type="button" data-tab="whatsapp" class="qr-tab-btn flex-1 py-2 px-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-1">
+                  <i data-lucide="message-circle" class="w-4 h-4"></i> WhatsApp
+                </button>
+                <button type="button" data-tab="email" class="qr-tab-btn flex-1 py-2 px-1 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all flex items-center justify-center gap-1">
+                  <i data-lucide="mail" class="w-4 h-4"></i> Email
+                </button>
+              </div>
+
+              <!-- Content URL -->
+              <div id="tab-content-url" class="qr-tab-content flex flex-col gap-2">
+                <label for="qr-data-url" class="text-sm font-medium text-slate-300">Enlace o Texto</label>
+                <div class="relative">
+                  <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <i data-lucide="link" class="w-5 h-5 text-slate-500"></i>
+                  </div>
+                  <input type="text" id="qr-data-url" class="qr-input w-full pl-10 pr-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-white placeholder-slate-500" placeholder="https://tu-sitio-web.com">
+                </div>
+              </div>
+
+              <!-- Content WiFi -->
+              <div id="tab-content-wifi" class="qr-tab-content hidden flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                  <label for="qr-wifi-ssid" class="text-sm font-medium text-slate-300">Nombre de la red (SSID)</label>
+                  <input type="text" id="qr-wifi-ssid" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="Mi_Red_WiFi">
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-2">
+                    <label for="qr-wifi-pass" class="text-sm font-medium text-slate-300">Contraseña</label>
+                    <input type="password" id="qr-wifi-pass" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="********">
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <label for="qr-wifi-enc" class="text-sm font-medium text-slate-300">Seguridad</label>
+                    <select id="qr-wifi-enc" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white appearance-none">
+                      <option value="WPA">WPA/WPA2</option>
+                      <option value="WEP">WEP</option>
+                      <option value="nopass">Ninguna</option>
+                    </select>
+                  </div>
+                </div>
+                <label class="flex items-center gap-2 cursor-pointer text-sm text-slate-300">
+                  <input type="checkbox" id="qr-wifi-hidden" class="qr-input w-4 h-4 rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-500 focus:ring-offset-slate-950">
+                  Red oculta
+                </label>
+              </div>
+
+              <!-- Content vCard -->
+              <div id="tab-content-vcard" class="qr-tab-content hidden flex-col gap-4">
+                <div class="grid grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-2">
+                    <label for="qr-vcard-name" class="text-sm font-medium text-slate-300">Nombre</label>
+                    <input type="text" id="qr-vcard-name" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="Juan Pérez">
+                  </div>
+                  <div class="flex flex-col gap-2">
+                    <label for="qr-vcard-org" class="text-sm font-medium text-slate-300">Empresa</label>
+                    <input type="text" id="qr-vcard-org" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="TechCorp">
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="qr-vcard-phone" class="text-sm font-medium text-slate-300">Teléfono</label>
+                  <input type="tel" id="qr-vcard-phone" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="+1 234 567 8900">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="qr-vcard-email" class="text-sm font-medium text-slate-300">Email</label>
+                  <input type="email" id="qr-vcard-email" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="juan@ejemplo.com">
+                </div>
+              </div>
+
+              <!-- Content WhatsApp -->
+              <div id="tab-content-whatsapp" class="qr-tab-content hidden flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                  <label for="qr-wa-phone" class="text-sm font-medium text-slate-300">Número de WhatsApp (con código de país)</label>
+                  <input type="tel" id="qr-wa-phone" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="34600000000">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="qr-wa-msg" class="text-sm font-medium text-slate-300">Mensaje Inicial (Opcional)</label>
+                  <textarea id="qr-wa-msg" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white resize-none" rows="2" placeholder="Hola, me interesa tu servicio..."></textarea>
+                </div>
+              </div>
+
+              <!-- Content Email -->
+              <div id="tab-content-email" class="qr-tab-content hidden flex-col gap-4">
+                <div class="flex flex-col gap-2">
+                  <label for="qr-email-to" class="text-sm font-medium text-slate-300">Para (Email)</label>
+                  <input type="email" id="qr-email-to" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="contacto@empresa.com">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="qr-email-sub" class="text-sm font-medium text-slate-300">Asunto</label>
+                  <input type="text" id="qr-email-sub" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white" placeholder="Consulta comercial">
+                </div>
+                <div class="flex flex-col gap-2">
+                  <label for="qr-email-body" class="text-sm font-medium text-slate-300">Cuerpo del correo</label>
+                  <textarea id="qr-email-body" class="qr-input w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 outline-none text-white resize-none" rows="2" placeholder="Escribe tu mensaje..."></textarea>
+                </div>
+              </div>
+
+              <!-- Density & Style Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t border-slate-800">
+                <div class="flex flex-col gap-2">
+                  <label for="qr-density" class="text-sm font-medium text-slate-300">Densidad del QR</label>
+                  <select id="qr-density" class="w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                    <option value="H">Alta (Requerido para logos)</option>
+                    <option value="Q">Media Alta</option>
+                    <option value="M">Media</option>
+                    <option value="L">Baja (Minimalista, sin logo)</option>
+                  </select>
+                </div>
+
+                <div class="flex flex-col gap-2">
+                  <label for="dot-style" class="text-sm font-medium text-slate-300">Estilo de Puntos</label>
+                  <select id="dot-style" class="w-full px-4 py-3 bg-slate-950/50 border border-slate-700/50 rounded-xl focus:ring-2 focus:ring-brand-500 focus:border-brand-500 outline-none transition-all text-white appearance-none cursor-pointer">
+                    <option value="rounded">Redondeados</option>
+                    <option value="dots">Puntos</option>
+                    <option value="classy">Elegante</option>
+                    <option value="classy-rounded">Elegante Redondeado</option>
+                    <option value="square">Cuadrados</option>
+                    <option value="extra-rounded">Extra Redondeados</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- Color Type -->
+              <div class="flex flex-col gap-2">
+                <label class="text-sm font-medium text-slate-300">Tipo de Color</label>
+                <div class="flex p-1 bg-slate-950/50 border border-slate-700/50 rounded-xl">
+                  <button type="button" id="btn-color-solid" class="flex-1 py-2 text-sm font-medium rounded-lg bg-brand-500 text-white shadow-md transition-all">Sólido</button>
+                  <button type="button" id="btn-color-gradient" class="flex-1 py-2 text-sm font-medium rounded-lg text-slate-400 hover:text-white transition-all">Gradiente</button>
+                </div>
+              </div>
+
+              <!-- Colors -->
+              <div class="flex gap-4">
+                <div class="flex flex-col gap-2 flex-1">
+                  <label for="color-primary" class="text-sm font-medium text-slate-300">Color Principal</label>
+                  <div class="flex items-center gap-3">
+                    <input type="color" id="color-primary" value="#8b5cf6" class="w-10 h-10 rounded cursor-pointer bg-transparent border-0 p-0">
+                    <span class="text-sm font-mono text-slate-400 uppercase" id="color-primary-text">#8B5CF6</span>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 flex-1 transition-opacity opacity-50 pointer-events-none" id="color-secondary-container">
+                  <label for="color-secondary" class="text-sm font-medium text-slate-300">Color Secundario</label>
+                  <div class="flex items-center gap-3">
+                    <input type="color" id="color-secondary" value="#d946ef" class="w-10 h-10 rounded cursor-pointer bg-transparent border-0 p-0">
+                    <span class="text-sm font-mono text-slate-400 uppercase" id="color-secondary-text">#D946EF</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Logo Upload & Advanced -->
+              <div class="flex flex-col gap-4 pt-4 border-t border-slate-800">
+                <div class="flex flex-col gap-2">
+                  <label class="text-sm font-medium text-slate-300">Logotipo Central (Opcional)</label>
+                  <div class="relative w-full border-2 border-dashed border-slate-700/50 rounded-xl hover:border-brand-500/50 transition-colors bg-slate-950/20">
+                    <input type="file" id="logo-upload" accept="image/png, image/svg+xml" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10">
+                    <div class="flex flex-col items-center justify-center p-6 text-center">
+                      <i data-lucide="image-plus" class="w-8 h-8 text-slate-500 mb-2"></i>
+                      <p class="text-sm text-slate-300 font-medium">Sube tu logo (PNG/SVG)</p>
+                      <p class="text-xs text-slate-500 mt-1">Requiere densidad 'Alta' para no romper lectura</p>
+                    </div>
+                  </div>
+                  
+                  <div id="logo-preview-container" class="hidden flex flex-col gap-3 p-4 mt-2 bg-slate-950/50 rounded-xl border border-slate-700/50">
+                    <div class="flex items-center justify-between">
+                      <div class="flex items-center gap-3">
+                        <img id="logo-preview-img" src="" alt="Logo" class="w-8 h-8 object-contain">
+                        <span id="logo-filename" class="text-sm text-slate-300 truncate max-w-[150px]">logo.png</span>
+                      </div>
+                      <button type="button" id="btn-remove-logo" class="p-2 text-slate-400 hover:text-red-400 transition-colors" title="Eliminar Logo">
+                        <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                    </div>
+                    <div class="h-px w-full bg-slate-800 my-1"></div>
+                    <div class="flex flex-col gap-3">
+                      <div class="flex items-center justify-between">
+                        <label for="logo-size" class="text-xs text-slate-400">Tamaño del Logo</label>
+                        <span id="logo-size-val" class="text-xs font-mono text-brand-400">40%</span>
+                      </div>
+                      <input type="range" id="logo-size" min="0.1" max="0.6" step="0.05" value="0.4" class="w-full accent-brand-500">
+                      
+                      <label class="flex items-center gap-2 cursor-pointer text-xs text-slate-300 mt-1">
+                        <input type="checkbox" id="logo-bg-dots" checked class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-500">
+                        Ocultar puntos detrás del logo
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+          <!-- RIGHT PANEL: PREVIEW -->
+          <div class="lg:col-span-5 flex flex-col gap-6 sticky top-24">
+            <div class="glass-panel rounded-3xl p-8 flex flex-col items-center justify-center relative overflow-hidden group">
+              <!-- Glow behind QR -->
+              <div class="absolute inset-0 bg-brand-500/10 blur-3xl rounded-full scale-75 group-hover:scale-100 transition-transform duration-700"></div>
+              
+              <!-- Container for HTML2Canvas (Includes Frame) -->
+              <div id="capture-container" class="relative z-10 w-full max-w-[340px] flex items-center justify-center p-2 rounded-2xl bg-transparent transition-all duration-300">
+                <!-- The actual Frame and QR -->
+                <div id="qr-frame-wrapper" class="w-full bg-white rounded-2xl shadow-xl flex flex-col items-center overflow-hidden transition-all duration-300 border-4 border-transparent p-0">
+                  <div id="qr-frame-text" class="hidden w-full bg-brand-500 text-white font-bold text-center py-3 text-xl tracking-widest uppercase">SCAN ME</div>
+                  <div class="p-6 bg-white w-full aspect-square flex items-center justify-center" id="qr-container">
+                    <!-- QR Canvas appended here -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Download Options -->
+            <div class="glass-panel rounded-3xl p-6 flex flex-col gap-4">
+              <div class="flex flex-col gap-3">
+                <label class="flex items-center gap-2 cursor-pointer text-sm font-medium text-white">
+                  <input type="checkbox" id="qr-frame-toggle" class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-brand-500 focus:ring-brand-500">
+                  Incluir marco personalizable
+                </label>
+                
+                <div id="frame-settings" class="hidden flex-col gap-3 pt-3 border-t border-slate-800 transition-all duration-300">
+                  <div class="flex flex-col gap-1">
+                    <label for="frame-text-input" class="text-xs text-slate-400">Texto del Marco</label>
+                    <input type="text" id="frame-text-input" class="w-full px-3 py-2 bg-slate-950/50 border border-slate-700/50 rounded-lg text-sm text-white outline-none focus:border-brand-500" value="SCAN ME">
+                  </div>
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="flex flex-col gap-1">
+                      <label for="frame-bg-color" class="text-xs text-slate-400">Color de Fondo</label>
+                      <input type="color" id="frame-bg-color" value="#8b5cf6" class="w-full h-8 rounded cursor-pointer bg-transparent border-0 p-0">
+                    </div>
+                    <div class="flex flex-col gap-1">
+                      <label for="frame-text-color" class="text-xs text-slate-400">Color de Texto</label>
+                      <input type="color" id="frame-text-color" value="#ffffff" class="w-full h-8 rounded cursor-pointer bg-transparent border-0 p-0">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-1">
+                  <label class="text-xs text-slate-400">Resolución</label>
+                  <select id="dl-resolution" class="w-full px-3 py-2 bg-slate-950/50 border border-slate-700/50 rounded-lg text-sm text-white appearance-none">
+                    <option value="512">512x512</option>
+                    <option value="1024" selected>1024x1024</option>
+                    <option value="2048">2048x2048 (4K)</option>
+                  </select>
+                </div>
+                <div class="flex flex-col gap-1">
+                  <label class="text-xs text-slate-400">Formato</label>
+                  <select id="dl-format" class="w-full px-3 py-2 bg-slate-950/50 border border-slate-700/50 rounded-lg text-sm text-white appearance-none">
+                    <option value="png">PNG</option>
+                    <option value="webp">WebP</option>
+                    <option value="svg" id="dl-svg-opt">SVG Vectorial</option>
+                  </select>
+                </div>
+              </div>
+
+              <button id="btn-download-advanced" class="w-full mt-2 flex items-center justify-center gap-2 py-3 px-4 bg-brand-600 hover:bg-brand-500 text-white font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(139,92,246,0.4)]">
+                <i data-lucide="download" class="w-5 h-5"></i>
+                <span>Descargar QR</span>
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </section>
+
+      <!-- FEATURES SECTION -->
+      <section id="features" class="w-full max-w-7xl mx-auto px-6 py-20 border-t border-white/5 relative">
+        <div class="text-center mb-16">
+          <h2 class="text-3xl font-bold text-white mb-4">Ingeniería Visual Avanzada</h2>
+          <p class="text-slate-400 max-w-2xl mx-auto">Tecnología de última generación corriendo directamente en tu navegador, sin servidores intermedios.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="glass-panel p-8 rounded-3xl hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/20 flex items-center justify-center mb-6 text-brand-400">
+              <i data-lucide="zap" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Generación Client-Side</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Procesamiento instantáneo en tu navegador. Tus datos no se envían a ningún servidor, garantizando máxima privacidad.</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/20 flex items-center justify-center mb-6 text-brand-400">
+              <i data-lucide="maximize" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Soporte Vectorial y 4K</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Exporta tu código en SVG o en PNG de 2048px (4K) para garantizar nitidez perfecta a cualquier escala (imprentas y vallas).</p>
+          </div>
+          <div class="glass-panel p-8 rounded-3xl hover:-translate-y-1 transition-transform duration-300">
+            <div class="w-12 h-12 rounded-2xl bg-brand-500/20 flex items-center justify-center mb-6 text-brand-400">
+              <i data-lucide="palette" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-3">Identidad de Marca</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Personaliza densidades, formas, gradientes elegantes y centra logotipos sin comprometer la facilidad de escaneo.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ SECTION -->
+      <section class="w-full max-w-3xl mx-auto px-6 py-20 pb-32">
+        <h2 class="text-3xl font-bold text-center text-white mb-12">Preguntas Frecuentes</h2>
+        
+        <div class="flex flex-col gap-4">
+          <div class="glass-panel rounded-2xl overflow-hidden faq-item">
+            <button class="faq-button w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+              <span class="font-medium text-white">¿Qué significa la "Densidad del QR"?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 faq-icon"></i>
+            </button>
+            <div class="faq-content h-0 overflow-hidden transition-all duration-300 px-6 opacity-0">
+              <p class="text-slate-400 text-sm pb-5">
+                La densidad se refiere al Nivel de Corrección de Errores (L, M, Q, H). Un nivel 'Alto' (H) hace que el QR tenga muchos puntos juntos para que resista daños de hasta 30% (ideal cuando se tapa el centro con un logo). Si no usas logo, puedes usar densidad 'Baja' (L), creando un QR mucho más minimalista y fácil de escanear de lejos.
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-panel rounded-2xl overflow-hidden faq-item">
+            <button class="faq-button w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+              <span class="font-medium text-white">¿Cómo debo preparar mi logo antes de subirlo?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 faq-icon"></i>
+            </button>
+            <div class="faq-content h-0 overflow-hidden transition-all duration-300 px-6 opacity-0">
+              <p class="text-slate-400 text-sm pb-5">
+                Para mejores resultados estéticos, recomendamos utilizar archivos PNG o SVG con fondo transparente. Evita imágenes con demasiados detalles minúsculos. Recuerda que si usas logo, el QR debe tener densidad "Alta".
+              </p>
+            </div>
+          </div>
+
+          <div class="glass-panel rounded-2xl overflow-hidden faq-item">
+            <button class="faq-button w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
+              <span class="font-medium text-white">¿Puedo descargar en formato Vector (SVG) con el marco activo?</span>
+              <i data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform duration-300 faq-icon"></i>
+            </button>
+            <div class="faq-content h-0 overflow-hidden transition-all duration-300 px-6 opacity-0">
+              <p class="text-slate-400 text-sm pb-5">
+                La descarga nativa en formato SVG exporta únicamente el Código QR. El marco "SCAN ME" es un elemento estilizado avanzado (generado en el navegador como lienzo visual) que requiere exportarse en formato de mapa de bits (PNG o WebP) para conservar los efectos de luz y tipografía exactos. Si necesitas el marco, elige descargar en PNG en resolución alta.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+    </main>
+
+    <footer class="w-full border-t border-white/5 py-8 text-center text-slate-500 text-sm">
+      <p>&copy; 2026 QRAesthetic Premium. Procesamiento local.</p>
+    </footer>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
